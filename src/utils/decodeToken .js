@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const token_secret = process.env.TOKEN_KEY;
 
+// For get data from token
 let decodeToken = (authorization) => {
   authorization = authorization.split(" ");
   let token = authorization[1];

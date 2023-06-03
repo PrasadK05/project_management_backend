@@ -4,6 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const connect = require("./config/db");
 
+// Imported routes
 const projectRoutes = require("./routes/project.rotes");
 
 // controller functions
