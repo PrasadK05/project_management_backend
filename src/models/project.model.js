@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
 const projects = new mongoose.Schema({
-  name: { type: String, required: true },
+  projectName: { type: String, required: true },
   location: { type: String, required: true },
+  startDate: { type: Number, required: true },
+  endDate: { type: Number, required: true },
   priority: { type: String, enum: ["High", "Medium", "Low"], required: true },
   reason: {
     type: String,
@@ -26,7 +28,7 @@ const projects = new mongoose.Schema({
   },
   department: {
     type: String,
-    enum: ["Startegyh", "Finance", "Quality", "Maintenance", "Stores"],
+    enum: ["Strategy", "Finance", "Quality", "Maintenance", "Stores"],
     required: true,
   },
   status: {

@@ -4,6 +4,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const connect = require("./config/db");
 
+const projectRoutes = require("./routes/project.rotes");
+
 // controller functions
 const loginFunction = require("./controllers/auth/login.controller");
 const logoutFunction = require("./controllers/auth/logout.controller");
@@ -21,6 +23,9 @@ app.use(bodyParser.json());
 // Auth api
 app.post("/login", loginFunction);
 app.get("/logout", logoutFunction);
+
+// Project routes
+app.use("/projects", projectRoutes);
 
 app.get("/", (req, res) => {
   return res.send("Project Management Backend");
