@@ -84,7 +84,7 @@ let getProject = async (req, res) => {
       .status(200)
       .send({ status: true, result, total: totalData.length });
   } catch (error) {
-    res.status(404).send({ status: false, message: "Somethinf went wrong" });
+    res.status(404).send({ status: false, message: "Something went wrong" });
   }
 };
 

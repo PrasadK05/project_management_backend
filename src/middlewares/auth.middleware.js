@@ -1,13 +1,11 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
+const decodeToken = require("../utils/decodeToken ");
 const token_secret = process.env.TOKEN_KEY;
 
 const verifyToken = async function (req, res, next) {
   let { authorization } = req.headers;
-
-  authorization = authorization.split(" ");
-  let token = authorization[1];
-  let decode = jwt.decode(token, token_secret);
+  let decode = decodeToken(authorization);
 
   if (!token) {
     return res.status(401).send({ message: "Unauthorized" });

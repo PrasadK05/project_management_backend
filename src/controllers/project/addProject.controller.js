@@ -10,7 +10,7 @@ let addProject = async (req, res) => {
   } catch (error) {
     res
       .status(404)
-      .send({ status: false, message: "New project added unsuccessfull" });
+      .send({ status: false, message: "New project addition unsuccessfull" });
   }
 };
 
