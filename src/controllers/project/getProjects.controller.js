@@ -2,83 +2,29 @@ const Project = require("../../models/project.model");
 
 let getProject = async (req, res) => {
   let { q, sort, page = 1, limit = 10 } = req.query;
-  let result;
-  let regex;
-  let totalData;
+  // Optimized logic
   try {
-    if (q && sort) {
-      regex = new RegExp(q, "i");
-      totalData = await Project.find({
-        $or: [
-          { projectName: regex },
-          { reason: regex },
-          { type: regex },
-          { division: regex },
-          { category: regex },
-          { priority: regex },
-          { department: regex },
-          { location: regex },
-          { status: regex },
-        ],
-      });
-      result = await Project.find({
-        $or: [
-          { projectName: regex },
-          { reason: regex },
-          { type: regex },
-          { division: regex },
-          { category: regex },
-          { priority: regex },
-          { department: regex },
-          { location: regex },
-          { status: regex },
-        ],
-      })
-        .sort({ [sort]: 1 })
-        .limit(limit)
-        .skip((page - 1) * limit);
-    } else if (q) {
-      regex = new RegExp(q, "i");
-      totalData = await Project.find({
-        $or: [
-          { projectName: regex },
-          { reason: regex },
-          { type: regex },
-          { division: regex },
-          { category: regex },
-          { priority: regex },
-          { department: regex },
-          { location: regex },
-          { status: regex },
-        ],
-      });
-      result = await Project.find({
-        $or: [
-          { projectName: regex },
-          { reason: regex },
-          { type: regex },
-          { division: regex },
-          { category: regex },
-          { priority: regex },
-          { department: regex },
-          { location: regex },
-          { status: regex },
-        ],
-      })
-        .limit(limit)
-        .skip((page - 1) * limit);
-    } else if (sort) {
-      totalData = await Project.find();
-      result = await Project.find()
-        .sort({ [sort]: 1 })
-        .limit(limit)
-        .skip((page - 1) * limit);
-    } else {
-      totalData = await Project.find();
-      result = await Project.find()
-        .limit(limit)
-        .skip((page - 1) * limit);
-    }
+    let query = q
+      ? {
+          $or: [
+            { projectName: new RegExp(q, "i") },
+            { reason: new RegExp(q, "i") },
+            { type: new RegExp(q, "i") },
+            { division: new RegExp(q, "i") },
+            { category: new RegExp(q, "i") },
+            { priority: new RegExp(q, "i") },
+            { department: new RegExp(q, "i") },
+            { location: new RegExp(q, "i") },
+            { status: new RegExp(q, "i") },
+          ],
+        }
+      : {};
+
+    let totalData = await Project.find(query);
+    let result = await Project.find(query)
+      .sort(sort ? { [sort]: 1 } : {})
+      .limit(limit)
+      .skip((page - 1) * limit);
 
     return res
       .status(200)

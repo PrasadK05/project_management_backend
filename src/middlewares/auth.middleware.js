@@ -6,6 +6,8 @@ const token_secret = process.env.TOKEN_KEY;
 const verifyToken = async function (req, res, next) {
   let { authorization } = req.headers;
   let decode = decodeToken(authorization);
+  authorization = authorization.split(" ");
+  let token = authorization[1];
 
   if (!token) {
     return res.status(401).send({ message: "Unauthorized" });
